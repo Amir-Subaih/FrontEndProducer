@@ -1,0 +1,88 @@
+/* Middle Header */
+.middleheader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+    height: 50%;
+}
+
+.topheadermenu {
+    font-size: 40px;
+    cursor: pointer;
+    display: none;
+}
+
+.middleheadersearchbox {
+    width: 70%;
+    background-color: var(--white-color);
+    height: 60px;
+    border-radius: 7px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;  /* Vertical center alignment */
+}
+
+.middleheadersearchbox input {
+    flex: 1;  /* Take remaining width */
+    height: 100%;
+    border: none;
+    font-size: 21px;
+    padding-right: 20px;
+}
+
+.searchboxbtn {
+    height: 100%;
+    width: 100px;
+    padding: 0 7px;
+    font-size: 21px;
+    border: none;
+    background-color: var(--success-color);
+    cursor: pointer;
+}
+
+.middleheadershoppingcart {
+    font-size: 20px;
+    color: var(--white-color);
+    font-weight: 500;
+    cursor: pointer;
+    position: relative;
+}
+
+.middleheadershoppingcart .bicart3 {
+    font-size: 32px;
+    margin-right: 10px;
+}
+
+.cartnotification {
+    position: absolute;
+    top: -20px;
+    left: 15px;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--light-red-color);
+}
+
+@media (max-width: 920px) {
+    .middleheader {
+        flex-wrap: wrap;
+        height: 80%;
+    }
+    
+    .middleheadersearchbox {
+        width: 100%;
+    }
+}
+
+/* Media Queries */
+@media (max-width: 520px) {
+    .middleheader {
+        padding: 0 15px;
+    }
+}
