@@ -38,6 +38,7 @@ const AdminPage = () => {
             <nav>
                 <Link to="">المعلومات</Link>
                 <Link to="updateInfo">تحديث البيانات</Link>
+                <Link to="addProducer"> أضافة منتج</Link>
                 <Link to="producerAdded"> المنتجات</Link>
                 <Link onClick={logout}>تسجيل الخروج</Link>
             </nav>

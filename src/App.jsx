@@ -13,6 +13,7 @@ import UpdateInfo from './components/web/profile/UpdateInfo';
 import WebLayoutAdmin from './layout/WebLayoutAdmin';
 import AdminPage from './components/web/admin/Admin';
 import ProducerAdded from './components/web/admin/ProducerAdded';
+import AddProducer from './components/web/admin/AddProducer';
 
 
 export default function App() {
@@ -82,6 +83,10 @@ export default function App() {
             {
               path:"producerAdded",
               element:<ProducerAdded/>,
+            },
+            {
+              path:"addProducer",
+              element:<AddProducer/>,
             }
           ]
       }

@@ -4,6 +4,10 @@ import Category from '../category/Category';
 import { UserContext } from '../context/User';
 import style from './home.module.css';
 import jwtDecode from 'jwt-decode';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { useQuery } from 'react-query';
+import ProducerHome from './ProducerHome';
 
 
 const Home = () => {
@@ -11,6 +15,7 @@ const Home = () => {
   const { userToken } = useContext(UserContext);
   const [isAdmin, setIsAdmin] = useState(false);
   const [decodedToken, setDecodedToken] = useState(null);
+  const navigate=useNavigate();
 
   useEffect(() => {
     if (userToken) {
@@ -30,15 +35,32 @@ const Home = () => {
     }
   }, [userToken]);
 
- 
+  const ProHome = async () => {
+    try {
+        const { data } = await axios.get("https://backendproduce.onrender.com/api/producer");
+        return data;
+    } catch (error) {
+        console.error("Error fetching house estates:", error);
+        throw error;
+    }
+}
+
+const { data: proHome, isLoading: isProLoading } = useQuery("producerHome", ProHome);
+console.log(proHome);
+
+ if ( decodedToken && !decodedToken.isAdmin) {
+    navigate('/admin');
+  }
 
   return (
     <>
-    <Banner/>
-    <Category/>
-      <div className={``}>
-        <h1>Home</h1>
-      </div>
+    <div className={`${style.bg}`}>
+      <Banner/>
+      <Category/>
+      <ProducerHome rs={proHome} loadingR={isProLoading}/>
+        
+          <h1>Home</h1>
+    </div>
     </>
   );
 }
