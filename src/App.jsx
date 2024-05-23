@@ -8,6 +8,7 @@ import {UserContext} from './components/web/context/User';
 import Profile from './components/web/profile/Profile';
 import UserInfo from './components/web/profile/UserInfo';
 import UpdateInfo from './components/web/profile/UpdateInfo';
+import ProducerHome from './components/web/home/ProducerHome';
 
 // Admin
 import WebLayoutAdmin from './layout/WebLayoutAdmin';
@@ -47,6 +48,10 @@ export default function App() {
       {
         path:"register",
         element:<Register/>
+      },
+      {
+        path:"producerHome",
+        element:<ProducerHome/>
       },
       {
         path:"profile",

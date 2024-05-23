@@ -55,11 +55,9 @@ console.log(proHome);
   return (
     <>
     <div className={`${style.bg}`}>
-      <Banner/>
-      <Category/>
-      <ProducerHome rs={proHome} loadingR={isProLoading}/>
-        
-          <h1>Home</h1>
+          <Banner/>
+          <Category/>
+          <ProducerHome rs={proHome} loadingR={isProLoading}/>
     </div>
     </>
   );
