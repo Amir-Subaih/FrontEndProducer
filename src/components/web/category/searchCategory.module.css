@@ -1,0 +1,83 @@
+.titleProduct 
+{
+font-family: "Urbanist", sans-serif;
+font-size: 38px;
+font-weight: 600;
+text-align: center;
+border-bottom: 2px solid #000;
+margin-bottom: 50px;
+color: #110229;
+}
+
+.card
+{
+width: 285px;
+height: 335px;
+border: 1px solid #0000001A;
+}
+.card img
+{
+width: 265px;
+height: 165px;
+margin: 10px;
+}
+
+.price
+{
+font-family: "Roboto", sans-serif;
+font-size: 24px;
+font-weight: 500;
+line-height: 28.13px;
+margin-right:10px ;
+color: #000;
+}
+.name
+{
+font-family: "Roboto", sans-serif;
+font-size: 15px;
+font-weight: 500;
+line-height: 16.41px;
+margin-right:10px ;
+color: #00000080 ;
+}
+.brand,.size,.category
+{
+font-family: "Roboto", sans-serif;
+font-size: 12px;
+font-weight: 400;
+line-height: 11.72px;
+margin-right:10px ;
+color: #00000080 ;
+}
+
+.prices select
+{
+    border-top: 2px solid #000;
+    background-color: #d2d8dd;
+    color: #000;
+    font-weight: 500;
+    font-family: "Roboto", sans-serif;
+}
+.names select,.sizes select
+{
+    position: relative;
+    right: 23px;
+    background-color: #d2d8dd;
+    color: #000;
+    font-weight: 500;
+    font-family: "Roboto", sans-serif;
+    border-right:2px solid #000 ;
+}
+
+
+
+
+.price
+{
+font-family: "Roboto", sans-serif;
+font-size: 25px;
+font-weight: 400;
+margin-right: 5px;
+}
+
+

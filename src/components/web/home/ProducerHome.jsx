@@ -29,7 +29,7 @@ export default function ProducerHome({ rs, loadingR }) {
                                 <b className={`${style.offerItemL}`}>{state.size}</b>
                                 <b className={`${style.offerItem}`}>${state.price}</b>
                             </div>
-                            <Link to={`/`} className={`${style.offerSeeMore}`}>
+                            <Link to={`/detalisProducer/${state._id}`} className={`${style.offerSeeMore}`}>
                                  شاهد المزید ...
                             </Link>
                             </div>

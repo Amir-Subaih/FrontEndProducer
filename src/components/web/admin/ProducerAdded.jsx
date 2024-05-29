@@ -58,7 +58,7 @@ export default function ProducerAdded() {
         {data.producers.length ? data.producers.map((producers) =>
           <div className="col-md-3" key={producers._id}>
             <div className={`mt-3 ${style.card}`}>
-              <Link to={`/ara/ditalStateArabic/${producers._id}`}>
+              <Link to={`/detalisProducer/${producers._id}`}>
               <img src={producers.imageUrl[0]} alt='Producers'/>
               </Link>
               <p className={`${style.price}`}>{producers.price} $</p>

@@ -37,10 +37,10 @@ const Home = () => {
 
   const ProHome = async () => {
     try {
-        const { data } = await axios.get("https://backendproduce.onrender.com/api/producer");
+        const { data } = await axios.get("https://backendproduce.onrender.com/api/producer?pageNumber=1");
         return data;
     } catch (error) {
-        console.error("Error fetching house estates:", error);
+        console.error("Error fetching Producer:", error);
         throw error;
     }
 }
@@ -48,7 +48,7 @@ const Home = () => {
 const { data: proHome, isLoading: isProLoading } = useQuery("producerHome", ProHome);
 console.log(proHome);
 
- if ( decodedToken && !decodedToken.isAdmin) {
+ if ( decodedToken && decodedToken.isAdmin) {
     navigate('/admin');
   }
 

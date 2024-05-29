@@ -11,7 +11,7 @@ export const categories = [
     },
     {
         id:3,
-        title: "أجهزه للارتداء",
+        title: "أجهزه-للارتداء",
         image: "/images/products/category/o19.jpg",
     },
     {
@@ -26,7 +26,7 @@ export const categories = [
     },
     {
         id:6,
-        title: "الأحذیه الریاضیه",
+        title: "الأحذیه-الریاضیه",
         image: "/images/products/category/jordan2.png",
     },
     {
@@ -41,17 +41,17 @@ export const categories = [
     },
     {
         id:9,
-        title: "أزیاء نسائیه",
+        title: "أزیاء-نسائیه",
         image: "/images/products/category/pngaaa.png",
     },
     {
         id:10,
-        title: "أزیاء رجالیه",
+        title: "أزیاء-رجالیه",
         image: "/images/products/category/pngaaam.png",
     },
     {
         id:11,
-        title: "ملابس ریاضیه",
+        title: "ملابس-ریاضیه",
         image: "/images/products/category/sport.png",
     },
     {

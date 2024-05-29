@@ -9,6 +9,8 @@ import Profile from './components/web/profile/Profile';
 import UserInfo from './components/web/profile/UserInfo';
 import UpdateInfo from './components/web/profile/UpdateInfo';
 import ProducerHome from './components/web/home/ProducerHome';
+import DetalisProducer from './components/web/DetalisProd/DetalisProducer';
+import SearchCategory from './components/web/category/SearchCategory';
 
 // Admin
 import WebLayoutAdmin from './layout/WebLayoutAdmin';
@@ -54,6 +56,13 @@ export default function App() {
         element:<ProducerHome/>
       },
       {
+        path:"detalisProducer/:proId",
+        element:<DetalisProducer/>
+      },{
+        path:"searchCategory/:ca",
+        element:<SearchCategory />
+      },
+      {
         path:"profile",
         element:<Profile/>,
         children:[
@@ -88,6 +97,10 @@ export default function App() {
             {
               path:"producerAdded",
               element:<ProducerAdded/>,
+            },
+            {
+              path:"detalisProducer/:proId",
+              element:<DetalisProducer/>
             },
             {
               path:"addProducer",
