@@ -265,4 +265,165 @@ text-align: left;
   .updateButton:hover {
     background-color: #2980b9;
   }
+
+  /* Order Details */
+.orderDetailsContainer {
+  padding: 20px;
+}
+
+.orderCard {
+  background-color: #f0f0f0;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.orderItemsList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.orderItem {
+  background-color: #fff;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  width: calc(50% - 10px); /* Two items per row */
+  display: flex;
+  align-items: center;
+  transition: transform 0.3s ease;
+}
+
+.orderItem:hover {
+  transform: translateY(-5px);
+}
+
+.orderItem img {
+  max-width: 100px;
+  max-height: 100px;
+  object-fit: cover;
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+.productInfo {
+  flex-grow: 1;
+}
+
+.loadingContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px; /* Adjust as needed */
+}
+
+.loadingSpinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-top: 4px solid #333;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 1s linear infinite;
+  margin-right: 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* orders details */
+.loadingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.loadingSpinner {
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid #3498db;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.orderDetailsContainer {
+  padding: 20px;
+}
+
+.orderCard {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+.updateSection {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.statusSelect {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.updateButton {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.updateButton:hover {
+  background-color: #2980b9;
+}
+
+.orderItems {
+  margin-top: 20px;
+}
+
+.orderItemsList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.orderItem {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  border: 1px solid #eee;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.orderItem img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.productInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
   

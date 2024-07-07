@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import style from './admin.module.css';
 import { UserContext } from '../context/User';
+import { Link } from 'react-router-dom';  
 
 const AdminOrders = () => {
   const [orders, setOrders] = useState([]);
@@ -44,31 +45,7 @@ const AdminOrders = () => {
     fetchOrders();
   }, [userToken]);
 
-  const handleUpdateState = async (orderId, newState) => {
-    try {
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        }
-      };
-
-      const response = await axios.put(
-        `https://backendproduce.onrender.com/api/order/${orderId}`,
-        { status: newState },
-        config
-      );
-
-      if (response.data.message === "success") {
-        setOrders(orders.map(order => order._id === orderId ? { ...order, status: newState } : order));
-        setMessage('تم تحديث حالة الطلب بنجاح');
-      } else {
-        setMessage(response.data.message);
-      }
-    } catch (err) {
-      console.log(err);
-      setMessage('حدث خطأ أثناء محاولة تحديث حالة الطلب.');
-    }
-  };
+  
 
   if (loading) {
     return (
@@ -93,16 +70,11 @@ const AdminOrders = () => {
               <p>تاريخ الطلب: {new Date(order.createdAt).toLocaleDateString()}</p>
               <p>المجموع: {order.sumPrice}$</p>
               <p>الحالة: {order.status}</p>
+
+              <Link to={`/admin/adminOrders/${order._id}`} className={`${style.updateButton}`}>
+                  عرض تفاصيل الطلب
+              </Link>
               
-              <button onClick={() => handleUpdateState(order._id, 'قيد المعالجة')} className={style.updateButton}>
-                تعيين كقيد المعالجة
-              </button>
-              <button onClick={() => handleUpdateState(order._id, 'تم الشحن')} className={style.updateButton}>
-                تعيين كتم الشحن
-              </button>
-              <button onClick={() => handleUpdateState(order._id, 'تم التوصيل')} className={style.updateButton}>
-                تعيين كتم التوصيل
-              </button>
             </div>
           ))}
         </div>

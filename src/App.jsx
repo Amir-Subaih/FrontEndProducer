@@ -22,6 +22,7 @@ import AdminPage from './components/web/admin/Admin';
 import ProducerAdded from './components/web/admin/ProducerAdded';
 import AddProducer from './components/web/admin/AddProducer';
 import AdmminOrders from './components/web/admin/AdminOrders';
+import AdminOrderDetails from './components/web/admin/AdminOrderDetails';
 
 // Not Found
 import NotFound from './components/notFound/NotFound'; // Added import for NotFound component
@@ -118,6 +119,10 @@ export default function App() {
             {
               path: 'updateInfo',
               element: <UpdateInfo />
+            },
+            {
+              path: 'adminOrders/:orderId',
+              element: <AdminOrderDetails />
             },
             {
               path: 'orders',
