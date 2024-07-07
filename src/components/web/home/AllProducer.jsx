@@ -1,26 +1,35 @@
 import React from 'react';
 import style from './home.module.css';
 import { Link } from 'react-router-dom';
+import { useQuery } from 'react-query';
+import axios from 'axios';
 
-export default function ProducerHome({ rs, loadingR }) {
-    console.log(rs);
+export default function AllProducer() {
 
-    if (loadingR) {
+    const Pro = async () => {
+        try {
+          const { data } = await axios.get("https://backendproduce.onrender.com/api/producer");
+          return data;
+        } catch (error) {
+          console.error("Error fetching Producer:", error);
+          throw error;
+        }
+      };
+    
+      const { data: pro, isLoading: isProLoading } = useQuery("producer", Pro);
+
+    if (isProLoading) {
         return <h1>جارٍ التحميل...</h1>;
     }
 
-    if (!rs || !rs.producers) {
+    if (!pro || !pro.producers) {
         return <h1>فارغ</h1>; // Display a message or fallback UI when rs or rs.producers is undefined
     }
 
     return (
         <div className="container my-5" dir="rtl">
-            <div className="d-flex justify-content-between">
-                <p className={style.titleState}>تمت إضافتها مؤخرًا</p>
-                <Link to="/allProducer" className={style.btnSeeAll}>عرض الكل</Link>
-            </div>
             <div className="row">
-                {rs.producers.map((state) => (
+                {pro.producers.map((state) => (
                     <div className="col-md-6" key={state._id}>
                         <div className={style.offer}>
                             <div className={style.offerImageWrapper}>

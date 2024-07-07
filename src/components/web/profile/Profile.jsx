@@ -60,9 +60,11 @@ export default function Profile() {
       <nav>
         <Link to="">المعلومات</Link>
 
-        <Link  onClick={() => setShowModal(true)}>حذف الحساب</Link> 
+        <Link to="updateInfo">تحديث البيانات</Link>
 
-        <Link to="updateInfoArabic">تحديث البيانات</Link>
+        <Link to="myOrders">طلباتي</Link>
+
+        <Link  onClick={() => setShowModal(true)}>حذف الحساب</Link> 
       </nav>
 
         <Modal show={showModal} onHide={handleClose}> {/* Modal لتأكيد الحذف */}

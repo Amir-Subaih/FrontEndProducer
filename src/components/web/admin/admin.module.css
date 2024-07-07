@@ -7,17 +7,30 @@ body, html {
 }
 
 /* src/components/admin/admin.module.css */
-.admin
-  {
-      background-image: url("../../../../img/bg2.jpg");
-      background-repeat: no-repeat;
-      background-size: cover;
-      display: flex;
-      gap: 30px;
-      width: 100%; /* Ensure the admin container takes full width of its parent */
-      max-width: 100%; /* Prevent overflow */
-      box-sizing: border-box; /* Include padding and border in the element's total width and height */  
-  }  
+.admin {
+    position: relative;
+    display: flex;
+    gap: 30px;
+    width: 100%; /* Ensure the admin container takes full width of its parent */
+    max-width: 100%; /* Prevent overflow */
+    box-sizing: border-box;
+    overflow: hidden; /* Ensure pseudo-element does not cause overflow */
+}
+
+.admin::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("../../../../img/login.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0.5; /* Adjust the opacity to control the transparency of the background image */
+    z-index: -1; /* Place the pseudo-element behind the content */
+}
+
 
   .adminLinks nav
   {

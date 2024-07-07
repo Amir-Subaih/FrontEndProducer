@@ -16,21 +16,29 @@ export default function Register() {
         phone: '',
         location:'',
         password: '',
-        confirmPassword:'',
+        confirm_password:'',
     }
-    const onSubmit = async users => {
+    const onSubmit = async (users) => {
         try {
-            const { data } = await axios.post("https://backendproduce.onrender.com/api/auth/register", users);
-            console.log(data);
-            if (data.message === "success") {
-                toast.success("تم التسجيل بنجاح");
-                navigate("/login");
-            }
-
+          const { data } = await axios.post("https://backendproduce.onrender.com/api/auth/register", users);
+          console.log(data);
+          if (data.message === "success") {
+            toast.success("تم التسجيل بنجاح");
+            navigate("/login");
+          }
         } catch (err) {
-            console.log(err);
+          console.error(err);
+          if (err.response) {
+            // Server responded with an error status code
+            toast.error(err.response.data); // Display the error message returned by the server
+          } else {
+            // An error occurred before the request could be sent
+            toast.error("حدث خطأ ما أثناء معالجة الطلب");
+          }
         }
-    }
+      };
+      
+      
 
     const formik = useFormik({
         initialValues,
@@ -83,12 +91,12 @@ export default function Register() {
             onBlur: () => setPasswordFocused(false)
         },
         {
-            id:'confirmPassword',
-            name:'confirmPassword',
+            id:'confirm_password',
+            name:'confirm_password',
             title:'تأكيد كلمة المرور',
             type:'password',
             className:'form-control',
-            value:formik.values.confirmPassword
+            value:formik.values.confirm_password
         },
 
     ]

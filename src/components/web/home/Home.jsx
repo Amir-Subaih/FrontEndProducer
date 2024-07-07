@@ -1,4 +1,4 @@
-import React, { useContext,useState,useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import Banner from '../banner/Banner';
 import Category from '../category/Category';
 import { UserContext } from '../context/User';
@@ -9,13 +9,11 @@ import axios from 'axios';
 import { useQuery } from 'react-query';
 import ProducerHome from './ProducerHome';
 
-
 const Home = () => {
-
   const { userToken } = useContext(UserContext);
   const [isAdmin, setIsAdmin] = useState(false);
   const [decodedToken, setDecodedToken] = useState(null);
-  const navigate=useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (userToken) {
@@ -37,30 +35,32 @@ const Home = () => {
 
   const ProHome = async () => {
     try {
-        const { data } = await axios.get("https://backendproduce.onrender.com/api/producer?pageNumber=1");
-        return data;
+      const { data } = await axios.get("https://backendproduce.onrender.com/api/producer?pageNumber=1");
+      return data;
     } catch (error) {
-        console.error("Error fetching Producer:", error);
-        throw error;
+      console.error("Error fetching Producer:", error);
+      throw error;
     }
-}
+  };
 
-const { data: proHome, isLoading: isProLoading } = useQuery("producerHome", ProHome);
-console.log(proHome);
+  const { data: proHome, isLoading: isProLoading } = useQuery("producerHome", ProHome);
+  console.log(proHome);
 
- if ( decodedToken && decodedToken.isAdmin) {
+  // Navigate to admin page if the user is an admin
+  if (decodedToken && decodedToken.isAdmin) {
     navigate('/admin');
   }
 
+  
   return (
     <>
-    <div className={`${style.bg}`}>
-          <Banner/>
-          <Category/>
-          <ProducerHome rs={proHome} loadingR={isProLoading}/>
-    </div>
+      <div className={`${style.bg}`}>
+        <Banner />
+        <Category />
+        <ProducerHome rs={proHome} loadingR={isProLoading} />
+      </div>
     </>
   );
-}
+};
 
 export default Home;

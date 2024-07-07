@@ -7,12 +7,17 @@ import Middlen from "./Middle/Middlen";
 import Footern from "./Footer/Footern";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPerson } from '@fortawesome/free-solid-svg-icons';
+import { useDispatch } from 'react-redux'; // Import useDispatch
+import { cartActions } from "../../../redux/slices/cartSlice"
+
 export default function Navbar() {
   // const {userId}=useParams();
   const navigate=useNavigate();
   let {userToken,setUserToken,userData,setUserData,loading}=useContext(UserContext);
+  const dispatch = useDispatch(); // Initialize useDispatch
   
   const logout=()=>{
+    dispatch(cartActions.clearCart()); // Clear the cart
     localStorage.removeItem('userToken');
     setUserToken(null);
     setUserData(null);
@@ -53,7 +58,7 @@ export default function Navbar() {
                               </>
                               :
                               <>
-                                <li><Link className={`dropdown-item ${style.login}`} to={`/`}>الملف الشخصي</Link></li>
+                                <li><Link className={`dropdown-item ${style.login}`} to={`/profile`}>الملف الشخصي</Link></li>
                                 <li><hr className="dropdown-divider" /></li>
                                 <li><Link className={`dropdown-item ${style.login}`} onClick={logout}>تسجيل الخروج</Link></li>
                               </>
