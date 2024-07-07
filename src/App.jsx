@@ -21,6 +21,7 @@ import WebLayoutAdmin from './layout/WebLayoutAdmin';
 import AdminPage from './components/web/admin/Admin';
 import ProducerAdded from './components/web/admin/ProducerAdded';
 import AddProducer from './components/web/admin/AddProducer';
+import AdmminOrders from './components/web/admin/AdminOrders';
 
 // Not Found
 import NotFound from './components/notFound/NotFound'; // Added import for NotFound component
@@ -117,6 +118,10 @@ export default function App() {
             {
               path: 'updateInfo',
               element: <UpdateInfo />
+            },
+            {
+              path: 'orders',
+              element: <AdmminOrders />
             },
             {
               path: 'producerAdded',
