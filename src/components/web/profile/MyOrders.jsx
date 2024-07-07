@@ -3,6 +3,7 @@ import axios from 'axios';
 import { UserContext } from '../context/User';
 import { Link } from 'react-router-dom';
 import style from './Profile.module.css';
+import swal from 'sweetalert'; // Ensure you have sweetalert installed
 
 const MyOrders = () => {
   const [orders, setOrders] = useState([]);
@@ -38,8 +39,7 @@ const MyOrders = () => {
     fetchOrders();
   }, [userToken, userData._id]);
 
-  const handleDelete = async (orderId) => {
-    console.log("Order ID", orderId);
+  const deletOrder = async (orderId) => {
     try {
       const config = {
         headers: {
@@ -53,19 +53,21 @@ const MyOrders = () => {
         config
       );
 
-      console.log("data", response.data);
+      console.log(response.data);
       if (response.data.message === "success") {
+        swal("Deleted Success!", "You clicked the button!", "success");
         setOrders(orders.filter(order => order._id !== orderId));
-        setMessage('Order deleted successfully');
       } else {
         setMessage(response.data.message);
       }
     } catch (err) {
       console.log(err);
-      if (err.response && err.response.data && err.response.data.message) {
-        setMessage(`Error: ${err.response.data.message}`);
+      if (err.response && err.response.status === 403) {
+        swal("Error", "You do not have permission to delete this order.", "error");
+      } else if (err.response && err.response.data && err.response.data.message) {
+        swal("Error", `Error: ${err.response.data.message}`, "error");
       } else {
-        setMessage('An error occurred while trying to delete the order.');
+        swal("Error", "An error occurred while trying to delete the order.", "error");
       }
     }
   };
@@ -107,7 +109,7 @@ const MyOrders = () => {
                   عرض تفاصيل الطلب
                 </Link>
                 {canDelete ? (
-                  <button onClick={() => handleDelete(order._id)} className={`${style.deleteButton}`}>
+                  <button onClick={() => deletOrder(order._id)} className={`${style.deleteButton}`}>
                     حذف الطلب
                   </button>
                 ) : (
