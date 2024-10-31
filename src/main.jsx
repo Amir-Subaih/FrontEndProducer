@@ -14,16 +14,20 @@ import { UserContextProvider } from './components/web/context/User.jsx'
 import { Provider } from 'react-redux';
 import store from './redux/store.jsx'
 
+import { DisplayContextProvider } from './components/web/context/Display.jsx';
+
 const queryClient = new QueryClient();
 ReactDOM.createRoot(document.getElementById('root')).render(
   <>
     <ToastContainer/>
       <UserContextProvider>
-          <QueryClientProvider client={queryClient}>
-            <Provider store={store}>
-              <App />
-            </Provider>   
-          </QueryClientProvider>
+        <DisplayContextProvider>
+              <QueryClientProvider client={queryClient}>
+                <Provider store={store}>
+                  <App />
+                </Provider>   
+              </QueryClientProvider>
+        </DisplayContextProvider>
       </UserContextProvider>
   </>,
 )

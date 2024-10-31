@@ -1,45 +1,55 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { UserContext } from '../context/User';
 import style from './Profile.module.css';
+import { DisplayContext } from '../context/Display';
+import { useQuery } from 'react-query';
+import { toast } from 'react-toastify';
 
 const OrderDetails = () => {
   const { orderId } = useParams();
-  const [order, setOrder] = useState(null);
-  const [loading, setLoading] = useState(true); // State to manage loading state
+  const navigate = useNavigate();
   const { userToken } = useContext(UserContext);
+  const { OrderDetails } = useContext(DisplayContext);
 
-  useEffect(() => {
-    const fetchOrderDetails = async () => {
-      try {
-        const config = {
-          headers: {
-            "Content-Type": "application/json",
-            token: userToken,
-          }
-        };
+  const getOrder = async () => {
+    const result = await OrderDetails(orderId);
+    return result;
+  };
 
-        const response = await axios.get(
-          `https://backendproduce.onrender.com/api/order/${orderId}`,
-          config
-        );
+  const { data: order, isLoading, error } = useQuery(['OrdersD', orderId], getOrder);
 
-        if (response.data.message === "Success") {
-          setOrder(response.data.order);
+  console.log("token", userToken);
+  console.log("order", order);
+
+  const handleDeleteOrder = async () => {
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          token: userToken,
         }
-      } catch (err) {
-        console.log(err);
-      } finally {
-        setLoading(false); // Set loading to false after fetching data
+      };
+
+      const response = await axios.delete(
+        `https://backendproduce.onrender.com/api/order/${orderId}`,
+        config
+      );
+
+      if (response.data.message === "success") {
+        toast.success(`تم حذف الطلب بنجاح`);
+        navigate('/profile/myOrders');
+      } else {
+        toast.error(response.data.message);
       }
-    };
+    } catch (err) {
+      console.log(err);
+      toast.error('حدث خطأ أثناء محاولة حذف الطلب.');
+    }
+  };
 
-    fetchOrderDetails();
-  }, [userToken, orderId]);
-
-  // Show loading animation if data is still fetching
-  if (loading) {
+  if (isLoading) {
     return (
       <div className={style.loadingContainer}>
         <div className={style.loadingSpinner}></div>
@@ -48,15 +58,35 @@ const OrderDetails = () => {
     );
   }
 
-  // Show order details once data is fetched
+  if (error) {
+    return <p>حدث خطأ أثناء جلب تفاصيل الطلب.</p>;
+  }
+
+  if (!order) {
+    return <p>لم يتم العثور على الطلب.</p>;
+  }
+
+  const orderCreationTime = new Date(order.createdAt);
+  const currentTime = new Date();
+  const timeDifference = (currentTime - orderCreationTime) / (1000 * 60); // Time difference in minutes
+  const canDelete = timeDifference <= 10;
+
   return (
     <div className={style.orderDetailsContainer}>
       <h2>تفاصيل الطلب</h2>
       <div className={style.orderCard}>
         <h3>رقم الطلب: {order._id}</h3>
-        <p>تاريخ الطلب: {new Date(order.createdAt).toLocaleDateString()}</p>
-        <p>المجموع: {order.sumPrice}$</p>
+        <p>تاريخ الطلب: {orderCreationTime.toLocaleDateString()}</p>
+        <p>المجموع: {`${order.sumPrice}$`}</p>
         <p>حالة الطلب: {order.status}</p>
+
+        {canDelete ? (
+          <button onClick={handleDeleteOrder} className={style.deleteButton}>
+            حذف الطلب
+          </button>
+        ) : (
+          <p>لا يمكن حذف الطلب بعد 10 دقائق من الإنشاء</p>
+        )}
         <div className={style.orderItems}>
           {order.orderArray && order.orderArray.length > 0 ? (
             <div className={style.orderItemsList}>

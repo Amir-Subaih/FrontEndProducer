@@ -11,7 +11,7 @@ const Footer = () => {
           <span className={`${style.footertopemailtext}`}>تواصل معانا عبر الإيميل</span>
           <span className={`${style.footertopemailaddress}`}>
             <i className="bi bienvelope"></i>
-            store@fakeemail.com
+            amirsubaih@gmail.com
           </span>
         </div>
       </div>
@@ -62,7 +62,7 @@ const Footer = () => {
          </div>
       </div>
       <div className={`${style.footerbottom}`}>
-      <i className="bi biccircle"></i> 2022
+      <i className="bi biccircle"></i> 2024
        کل الحقوق محفوظه
       </div>
     </footer>

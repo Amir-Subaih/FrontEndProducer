@@ -1,53 +1,28 @@
-import React, { useEffect, useState, useContext } from 'react';
-import axios from 'axios';
-import style from './admin.module.css';
-import { UserContext } from '../context/User';
+import React, { useContext, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';  
+import { useQuery } from 'react-query';
+import style from './admin.module.css';
+import { DisplayContext } from '../context/Display';
 
 const AdminOrders = () => {
   const [orders, setOrders] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState('');
-  const { userToken, userData } = useContext(UserContext);
+  const { AdminOrder } = useContext(DisplayContext);
+
+  const getOrder = async () => {
+    const result = await AdminOrder();
+    return result;
+  };
+
+  const { data, isLoading, error } = useQuery("Orders", getOrder);
 
   useEffect(() => {
-    const fetchOrders = async () => {
-      try {
-        const config = {
-          headers: {
-            "Content-Type": "application/json",
-            token: userToken,
-          }
-        };
+    if (data) {
+      setOrders(data);
+    }
+  }, [data]);
 
-        const response = await axios.get(
-          `https://backendproduce.onrender.com/api/order`,
-          config
-        );
-
-        if (response.data.message === "Success") {
-          setOrders(response.data.orders);
-        }
-      } catch (error) {
-        if (error.response) {
-          console.log("استجابة الخادم برقم الحالة:", error.response.status);
-          console.log("بيانات الاستجابة:", error.response.data);
-        } else if (error.request) {
-          console.log("لم يتم استلام استجابة من الخادم:", error.request);
-        } else {
-          console.log("حدث خطأ في إعداد الطلب الذي أدى إلى الخطأ:", error.message);
-        }
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchOrders();
-  }, [userToken]);
-
-  
-
-  if (loading) {
+  if (isLoading) {
     return (
       <div className={style.loadingContainer}>
         <div className={style.loadingSpinner}></div>
@@ -56,25 +31,31 @@ const AdminOrders = () => {
     );
   }
 
+  if (error) {
+    return (
+      <div className={style.errorContainer}>
+        <p>حدث خطأ أثناء تحميل الطلبات. الرجاء المحاولة مرة أخرى لاحقاً.</p>
+      </div>
+    );
+  }
+
   return (
     <div className={style.ordersContainer}>
       <h2>كل الطلبات</h2>
       {message && <p>{message}</p>}
-      {orders.length === 0 ? (
+      {orders && orders.length === 0 ? (
         <p>لا توجد طلبات.</p>
       ) : (
         <div className={style.ordersList}>
-          {orders.map((order) => (
+          {orders && orders.map((order) => (
             <div key={order._id} className={style.orderCard}>
               <h3>رقم الطلب: {order._id}</h3>
               <p>تاريخ الطلب: {new Date(order.createdAt).toLocaleDateString()}</p>
               <p>المجموع: {order.sumPrice}$</p>
               <p>الحالة: {order.status}</p>
-
-              <Link to={`/admin/adminOrders/${order._id}`} className={`${style.updateButton}`}>
-                  عرض تفاصيل الطلب
+              <Link to={`/admin/adminOrders/${order._id}`} className={style.updateButton}>
+                عرض تفاصيل الطلب
               </Link>
-              
             </div>
           ))}
         </div>

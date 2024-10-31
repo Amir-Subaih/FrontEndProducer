@@ -3,41 +3,32 @@ import axios from 'axios';
 import { UserContext } from '../context/User';
 import { Link } from 'react-router-dom';
 import style from './Profile.module.css';
-import swal from 'sweetalert'; // Ensure you have sweetalert installed
+import swal from 'sweetalert'; 
+import { toast } from 'react-toastify';
+import { DisplayContext } from '../context/Display';
+import { useQuery } from 'react-query';
 
 const MyOrders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const { userToken, userData } = useContext(UserContext);
   const [message, setMessage] = useState('');
+  
+  const { MyOrder } = useContext(DisplayContext);
+
+  const ordersMy = async () => {
+    const result = await MyOrder();
+    console.log("result", result);
+    return result;
+  };
+
+  const { data, isLoading, error } = useQuery('myOrder', ordersMy);
 
   useEffect(() => {
-    const fetchOrders = async () => {
-      try {
-        const config = {
-          headers: {
-            "Content-Type": "application/json",
-            token: userToken,
-          }
-        };
-
-        const response = await axios.get(
-          `https://backendproduce.onrender.com/api/order/user/${userData._id}`,
-          config
-        );
-
-        if (response.data.message === "success") {
-          setOrders(response.data.orders);
-        }
-      } catch (err) {
-        console.log(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchOrders();
-  }, [userToken, userData._id]);
+    if (data) {
+      setOrders(data);
+    }
+  }, [data]);
 
   const deletOrder = async (orderId) => {
     try {
@@ -73,9 +64,9 @@ const MyOrders = () => {
   };
 
   console.log("Data id", userData._id);
-  console.log("Orders", orders);
+  console.log("Orders", data);
 
-  if (loading) {
+  if (isLoading) {
     return (
       <div className={style.loadingContainer}>
         <div className={style.loadingSpinner}></div>
@@ -92,13 +83,7 @@ const MyOrders = () => {
         <p>لا توجد طلبات.</p>
       ) : (
         <div className={`${style.ordersList}`}>
-          {orders.map((order) => {
-            const orderCreationTime = new Date(order.createdAt);
-            const currentTime = new Date();
-            const timeDifference = (currentTime - orderCreationTime) / (1000 * 60); // Time difference in minutes
-            const canDelete = timeDifference <= 10;
-
-            return (
+          {orders.map((order) => (
               <div key={order._id} className={`${style.orderCard}`}>
                 <h3>رقم الطلب: {order._id}</h3>
                 <p>تاريخ الطلب: {new Date(order.createdAt).toLocaleDateString()}</p>
@@ -108,16 +93,9 @@ const MyOrders = () => {
                 <Link to={`/orders/${order._id}`} className={`${style.orderDetailsButton}`}>
                   عرض تفاصيل الطلب
                 </Link>
-                {canDelete ? (
-                  <button onClick={() => deletOrder(order._id)} className={`${style.deleteButton}`}>
-                    حذف الطلب
-                  </button>
-                ) : (
-                  <p>لا يمكن حذف الطلب بعد 10 دقائق من الإنشاء</p>
-                )}
+                
               </div>
-            );
-          })}
+          ))}
         </div>
       )}
     </div>
