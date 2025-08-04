@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import style from "./end.module.css";
 
-const Footern = () => {
+const End = () => {
     return (
         <nav style={{ right: "0" }} className={`${style.navbar} navbar-expand-lg `}>
             <button className="navbar-toggler" type="button" >
@@ -31,4 +31,4 @@ const Footern = () => {
     );
 };
 
-export default Footern;
+export default End;

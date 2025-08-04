@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { UserContext } from '../context/User'
 import Topn from "./Top/Topn";
 import Middlen from "./Middle/Middlen";
-import Footern from "./End/End";
+import End from "./End/End";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPerson } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch } from 'react-redux'; // Import useDispatch
@@ -36,7 +36,7 @@ export default function Navbar() {
           <div className={`${style.header}`}>
                   <Topn  />
                   <Middlen />
-                  <Footern  />
+                  <End  />
                   <div className={`${style.headerlogin}`}>
                       {/* <Link className={`dropdown-item `} to={"/login"}>تسجيل الدخول<FontAwesomeIcon icon={faPerson}  /></Link>  */}
                       <li className="nav-item dropdown">
