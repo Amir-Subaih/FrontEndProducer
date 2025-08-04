@@ -1,5 +1,5 @@
 import Navbar from '../components/web/navbar/Navbar'
-import Footer from '../../src/components/web/footer/Footer'
+import Footer from '../../src/components/web/footer/Footer.jsx'
 import { Outlet } from 'react-router-dom'
 
 export default function WebLayout() {
