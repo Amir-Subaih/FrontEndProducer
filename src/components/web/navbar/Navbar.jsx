@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { UserContext } from '../context/User'
 import Topn from "./Top/Topn";
 import Middlen from "./Middle/Middlen";
-import Footern from "./Footer/Footern";
+import Footern from "./End/End";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPerson } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch } from 'react-redux'; // Import useDispatch
