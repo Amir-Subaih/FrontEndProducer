@@ -7,7 +7,7 @@ export default function WebLayout() {
     <>
     <Navbar/>
     <Outlet/>
-    <Footer/>
+    {/* <Footer/> */}
     </>
 
   )
